@@ -16,8 +16,8 @@ ACCESS_TOKEN = 'REDACTED'
 base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
-if addon_handle > 0:
-    xbmcplugin.setContent(addon_handle, 'videos')
+#if addon_handle > 0:
+#    xbmcplugin.setContent(addon_handle, 'videos')
 
 
 def build_url(**kwargs):
@@ -27,6 +27,8 @@ def build_url(**kwargs):
 def mkdir(path):
     if not os.path.exists(path):
         os.makedirs(path)
+        return True
+    return False
 
 
 def main():
@@ -50,7 +52,8 @@ def main():
                 if 'movie' in item:
                     imdbid = item['movie']['ids']['imdb']
                     mov_dir = '{}/{}'.format(list_dir, imdbid)
-                    mkdir(mov_dir)
+                    if not mkdir(mov_dir):
+                        continue
                     nfo_file = '{}/{}.nfo'.format(mov_dir, imdbid)
                     strm_file = '{}/{}.strm'.format(mov_dir, imdbid)
                     with open(nfo_file, 'w') as nfo:
@@ -61,6 +64,8 @@ def main():
                         strm_url = ('plugin://plugin.video.openmeta/'
                                     'movies/play/imdb/{}').format(imdbid)
                         strm.write(strm_url)
+    xbmcplugin.endOfDirectory(addon_handle)
+    xbmc.executebuiltin('ActivateWindow(10025,'+directory+')')
 
 
 if __name__ == '__main__':
