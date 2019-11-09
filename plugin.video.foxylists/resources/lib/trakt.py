@@ -50,7 +50,8 @@ def authenticate(code=None, expires=None):
                                    'redirect_uri': 'urn:ietf:wg:oauth:2.0:oob',
                                    'grant_type': 'refresh_token',
                                })
-        return result
+        return result.json()
+    return False
 
 
 def get_request(path, auth_token, **params):

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="BTS">
+        <setting type="text" id="trakt.access_token" label="trakt.access_token" />
+        <setting type="text" id="trakt.refresh_token" label="trakt.refresh_token" />
+        <setting type="number" id="trakt.expires" label="trakt.expires" />
+    </category>
+</settings>
